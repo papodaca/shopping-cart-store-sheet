@@ -1,0 +1,31 @@
+<html>
+  <head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Shopping Cart Store Demo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Include Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  
+  <!-- Include SmartCart CSS -->
+  <link href="lib/jquery-smartcart/smart_cart.min.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <div class="container">
+    {{content}}
+  <!-- Include jQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" type="text/javascript" ></script>
+  <!-- Include SmartCart -->
+  <script src="lib/jquery-smartcart/jquery.smartCart.min.js" type="text/javascript"></script>
+  <!-- Initialize -->
+  <script type="text/javascript">
+    $(document).ready(function(){
+      // Initialize Smart Cart    	
+      $('#smartcart').smartCart();
+    });
+  </script>
+</body>
+</html>

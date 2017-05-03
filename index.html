@@ -2,7 +2,7 @@
 # You don't need to edit this file, it's empty on purpose.
 # Edit theme's home layout instead if you wanna make some changes
 # See: https://jekyllrb.com/docs/themes/#overriding-theme-defaults
-layout: home
+layout: default
 ---
 
 <section class="container">
@@ -47,8 +47,7 @@ layout: home
                                           <div class="form-group2">
                                               <input class="sc-cart-item-qty" name="product_quantity" min="1" value="1" type="number">
                                           </div>
-                                          <strong class="price pull-left">${{product.PriceDollars}}</strong>
-                                          
+                                          <strong class="price pull-left">${{product.PriceDollars}}</strong>                                          
                                           <input name="product_price" value="{{product.PriceDollars}}" type="hidden" />
                                           <input name="product_id" value="{{product.ProductId}}" type="hidden" />
                                           <button class="sc-add-to-cart btn btn-success btn-sm pull-right">Add to cart</button>
@@ -61,12 +60,9 @@ layout: home
                         <!-- END PRODUCTS -->
                     </div>
                 </div>
-            </div>
-            
-        </div>
-        
-        <aside class="col-md-4">
-            
+            </div>            
+        </div>        
+        <aside class="col-md-4">            
             <!-- Cart submit form -->
             <form action="results.php" method="POST"> 
                 <!-- SmartCart element -->

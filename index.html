@@ -64,21 +64,9 @@ layout: default
         </div>        
         <aside class="col-md-4">            
             <!-- Cart submit form -->
-            <form action="{{site.data.cloudstitch.api_endpoint}}" method="POST"> 
+            <form id="purchaseForm" action="{{site.data.cloudstitch.api_endpoint}}/Orders" method="POST"> 
+                <input type="hidden" name="stripeToken" value="" /> 
                 <input type="hidden" name="_redirect" value="http://www.google.com" /> 
-                <!--<script
-                  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                  data-key="pk_live_or1sC0BNcVEejcrQqDGx666f"
-                  data-amount="100"
-                  data-name="Pretend PDF Book"
-                  data-description="A pretend PDF Book"
-                  data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                  data-locale="auto">
-                </script>-->
-                <input type="hidden" name="stripeAmount" value="100" />
-                <input type="hidden" name="stripeCurrency" value="usd" />
-                <input type="hidden" name="stripeDescription" value ="A pretend book." />
-                <!-- SmartCart element -->
                 <div id="smartcart"></div>
             </form>
             
@@ -90,6 +78,10 @@ layout: default
   <!-- Include SmartCart -->
   <script src="lib/jquery-smartcart/jquery.smartCart.min.js" type="text/javascript"></script>
   <!-- Initialize -->
+
+<script src="https://checkout.stripe.com/checkout.js"></script>
+
+
   <script type="text/javascript">
     $(document).ready(function(){
       // Initialize Smart Cart    	
@@ -97,6 +89,34 @@ layout: default
         submitSettings: {
           submitType: 'stripe'
         }
+      }).on('cartSubmitted', function(e) {        
+        // Trigger stripe
+        handler.open({
+          name: 'Pretend Store',
+          description: $('input[name="stripeDescription"]').val(),
+          zipCode: true,
+          amount: $('input[name="stripeAmount"]').val()
+        });
+        e.preventDefault();
       });
+
+      // From the Stripe Checkout reference docs, "Custom" integration
+      // https://stripe.com/docs/checkout#integration-custom
+      var handler = StripeCheckout.configure({
+        key: 'pk_live_or1sC0BNcVEejcrQqDGx666f',
+        image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+        locale: 'auto',
+        token: function(token) {
+          $('input[name="stripeToken"]').val(JSON.stringify(token));
+          $('#purchaseForm').submit();
+        }
+      });
+    
+      // Close Checkout on page navigation:
+      window.addEventListener('popstate', function() {
+        handler.close();
+      });
+
     });
-  </script>
+</script>
+
